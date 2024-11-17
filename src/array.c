@@ -29,3 +29,26 @@ pinel_array_t* pinel_array_create(size_t elem_size, pinel_dealloc_t dealloc, pin
 
     return self;
 }
+
+void pinel_array_clear(pinel_array_t* self) {
+    if (!self->array) {
+        return;
+    }
+
+    if (self->dealloc) {
+        for (size_t i = 0; i < self->length; i++) {
+            self->dealloc(self->array + self->elem_size * i);
+        }
+    }
+
+    free(self->array);
+    self->array = NULL;
+
+    self->length = 0;
+    self->capacity = 0;
+}
+
+void pinel_array_destroy(pinel_array_t** self) {
+    pinel_array_clear(self);
+    free(self);
+}
