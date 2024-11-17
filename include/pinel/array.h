@@ -43,4 +43,40 @@ void pinel_array_clear(pinel_array_t* self);
  */
 void pinel_array_destroy(pinel_array_t* self);
 
+/**
+ * @brief Gets the length of the array.
+ *
+ * This function returns the current number of elements in the array.
+ * 
+ * @param self The array to get the length of.
+ * @return The number of elements in the array.
+ */
+size_t pinel_array_length(pinel_array_t* self);
+
+/**
+ * @brief Gets the capacity of the array.
+ *
+ * This function returns the total number of elements the array can hold
+ * before needing to resize. It may be greater than the length of the array
+ * if there is unused capacity.
+ * 
+ * @param self The array to get the capacity of.
+ * @return The total capacity of the array.
+ */
+size_t pinel_array_capacity(pinel_array_t* self);
+
+/**
+ * @brief Gets the element at the specified index in the array.
+ *
+ * This function retrieves a pointer to the element at the given index in
+ * the array. If the provided index is out of bounds,
+ * the function will return `NULL`.
+ * 
+ * @param self The array to access.
+ * @param index The index of the element to retrieve.
+ * @return A pointer to the element at the specified index,
+ * or `NULL` if the index is out of bounds.
+ */
+void* pinel_array_get(pinel_array_t* self, size_t index);
+
 #endif // PINEL_ARRAY_H

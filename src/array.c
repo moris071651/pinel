@@ -48,7 +48,23 @@ void pinel_array_clear(pinel_array_t* self) {
     self->capacity = 0;
 }
 
-void pinel_array_destroy(pinel_array_t** self) {
+void pinel_array_destroy(pinel_array_t* self) {
     pinel_array_clear(self);
     free(self);
+}
+
+size_t pinel_array_length(pinel_array_t* self) {
+    return self->length;
+}
+
+size_t pinel_array_capacity(pinel_array_t* self) {
+    return self->capacity;
+}
+
+void* pinel_array_get(pinel_array_t* self, size_t index) {
+    if (index >= self->length) {
+        return NULL;
+    }
+
+    return (self->array + self->elem_size * index);
 }

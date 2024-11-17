@@ -53,3 +53,6 @@ dkms.conf
 
 # Editor Settings
 .vscode/
+
+# Temporary files
+tmp.c
