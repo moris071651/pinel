@@ -41,7 +41,7 @@ void pinel_array_clear(pinel_array_t* self);
  * 
  * @param self The array to be destroyed.
  */
-void pinel_array_destroy(pinel_array_t* self);
+void pinel_array_destroy(pinel_array_t** self);
 
 /**
  * @brief Gets the length of the array.
@@ -77,6 +77,79 @@ size_t pinel_array_capacity(pinel_array_t* self);
  * @return A pointer to the element at the specified index,
  * or `NULL` if the index is out of bounds.
  */
-void* pinel_array_get(pinel_array_t* self, size_t index);
+void* pinel_array_at(pinel_array_t* self, size_t index);
+
+/**
+ * @brief Inserts an element at the specified index in the array.
+ *
+ * This function copies `elem` into the array at `index`, shifting every
+ * element from `index` onwards one position towards the back. The array grows
+ * its capacity automatically when it is full.
+ *
+ * `index` may be any value from `0` to the current length, so the element can
+ * be inserted at the front, in the middle, or at the back of the array.
+ *
+ * @param self The array to insert into.
+ * @param elem A pointer to the element to insert. It is copied into the array.
+ * @param index The index the element will be inserted at.
+ * @return 0 on success, 1 if the array is `NULL`, the index is out of bounds,
+ * or memory allocation fails.
+ */
+int pinel_array_push(pinel_array_t* self, void* elem, size_t index);
+
+/**
+ * @brief Inserts an element at the front of the array.
+ *
+ * This is equivalent to calling `pinel_array_push(self, elem, 0)`.
+ *
+ * @param self The array to insert into.
+ * @param elem A pointer to the element to insert. It is copied into the array.
+ * @return 0 on success, 1 on failure.
+ */
+int pinel_array_pushF(pinel_array_t* self, void* elem);
+
+/**
+ * @brief Inserts an element at the back of the array.
+ *
+ * This is equivalent to calling `pinel_array_push` with an index equal to the
+ * current length of the array.
+ *
+ * @param self The array to insert into.
+ * @param elem A pointer to the element to insert. It is copied into the array.
+ * @return 0 on success, 1 on failure.
+ */
+int pinel_array_pushB(pinel_array_t* self, void* elem);
+
+/**
+ * @brief Removes the element at the specified index from the array.
+ *
+ * If `elem` is not `NULL`, the removed element is copied into it.
+ * Otherwise, the `dealloc` function provided during creation is called (if any).
+ *
+ * @param self The array to remove from.
+ * @param index The index of the element to remove.
+ * @param elem Where to copy the removed element, or `NULL`.
+ * @return 0 on success, 1 on failure.
+ */
+int pinel_array_pop(pinel_array_t* self, size_t index, void* elem);
+
+/**
+ * @brief Removes the first element from the array.
+ *
+ * @param self The array to remove from.
+ * @param elem Where to copy the removed element, or `NULL`.
+ * @return 0 on success, 1 on failure.
+ */
+int pinel_array_popF(pinel_array_t* self, void* elem);
+
+/**
+ * @brief Removes the last element from the array.
+ *
+ * @param self The array to remove from.
+ * @param elem Where to copy the removed element, or `NULL`.
+ * @return 0 on success, 1 on failure.
+ */
+int pinel_array_popB(pinel_array_t* self, void* elem);
+
 
 #endif // PINEL_ARRAY_H
