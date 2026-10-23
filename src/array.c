@@ -85,7 +85,7 @@ int pinel_array_pop(pinel_array_t* self, size_t index, void* elem) {
         return 1;
     }
 
-    void* slot = self->array + index * self->elem_size;
+    uint8_t* slot = self->array + index * self->elem_size;
 
     if (elem) {
         memcpy(elem, slot, self->elem_size);
